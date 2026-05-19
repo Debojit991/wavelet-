@@ -3,6 +3,7 @@ import { SiteHeader } from '@/components/SiteHeader';
 import { EnterpriseFooter } from '@/components/EnterpriseFooter';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useState } from 'react';
+import { ServiceContactForm } from '@/components/ServiceContactForm';
 import { 
   BarChart3, Database, TrendingUp, Users, Brain, Shield, 
   Settings, Briefcase, Plus, Minus, ArrowRight, CheckCircle2,
@@ -494,53 +495,40 @@ function BusinessIntelligencePage() {
           {...getSectionReveal()}
           className="py-32 px-4"
         >
-          <div className="max-w-4xl mx-auto bg-[#111111] rounded-[3rem] p-12 md:p-20 text-white relative overflow-hidden">
-            <div className="absolute inset-0 opacity-10" style={{ background: "radial-gradient(circle at 100% 0%, white 0%, transparent 50%)" }} />
-            <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-16">
-              <div>
-                <h2 className="text-5xl font-bold mb-8 tracking-tight">Let's Connect</h2>
-                <p className="text-gray-400 text-lg leading-relaxed mb-10">
-                  Ready to architect your data-driven future? Our analytics experts are ready to show you what's possible.
-                </p>
-                <div className="space-y-6">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center">
-                      <Zap className="w-5 h-5 text-blue-400" />
-                    </div>
-                    <div>
-                      <div className="text-sm font-bold uppercase tracking-widest text-gray-500">Quick Response</div>
-                      <div className="font-semibold text-white">Under 24 hours</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center">
-                      <Shield className="w-5 h-5 text-emerald-400" />
-                    </div>
-                    <div>
-                      <div className="text-sm font-bold uppercase tracking-widest text-gray-500">Secure Consultation</div>
-                      <div className="font-semibold text-white">NDA Ready</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <form className="space-y-4">
-                <input type="text" placeholder="Full Name" className="w-full bg-white/5 border border-white/10 text-white rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-blue-500 transition-all" />
-                <input type="email" placeholder="Work Email" className="w-full bg-white/5 border border-white/10 text-white rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-blue-500 transition-all" />
-                <input type="text" placeholder="Company" className="w-full bg-white/5 border border-white/10 text-white rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-blue-500 transition-all" />
-                <select className="w-full bg-white/5 border border-white/10 text-white rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-blue-500 transition-all appearance-none cursor-pointer">
-                  <option value="" className="bg-[#111111]">Select Service Type</option>
-                  <option value="consulting" className="bg-[#111111]">BI Consulting</option>
-                  <option value="engineering" className="bg-[#111111]">Data Engineering</option>
-                  <option value="predictive" className="bg-[#111111]">Predictive Analytics</option>
-                  <option value="managed" className="bg-[#111111]">Managed Services</option>
-                </select>
-                <textarea placeholder="Your Message" rows={4} className="w-full bg-white/5 border border-white/10 text-white rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-none" />
-                <button className="w-full bg-white text-[#111111] font-bold py-5 rounded-2xl hover:scale-[1.02] transition-all shadow-xl shadow-black/20">
-                  Send Message
-                </button>
-              </form>
-            </div>
+          <div className="max-w-4xl mx-auto">
+            <ServiceContactForm
+              layout="dark-split"
+              theme="dark"
+              title="Let's Connect"
+              description="Ready to architect your data-driven future? Our analytics experts are ready to show you what's possible."
+              buttonText="Send Message"
+              successHeading="Inquiry Received!"
+              successMessage="Our analytics architects will review your business intelligence requirements and reach out within 24 business hours."
+              subject="WAVELET: Business Intelligence Inquiry"
+              bullets={[
+                { iconName: "zap", title: "Quick Response", subtitle: "Under 24 hours" },
+                { iconName: "shield-check", title: "Secure Consultation", subtitle: "NDA Ready" }
+              ]}
+              fields={[
+                { name: "name", label: "Full Name", type: "text", placeholder: "Full Name", required: true },
+                { name: "email", label: "Work Email", type: "email", placeholder: "you@company.com", required: true },
+                { name: "company", label: "Company", type: "text", placeholder: "Company", required: true },
+                { 
+                  name: "service_type", 
+                  label: "Service Type", 
+                  type: "select", 
+                  placeholder: "Select Service Type", 
+                  required: true,
+                  options: [
+                    { value: "consulting", label: "BI Consulting" },
+                    { value: "engineering", label: "Data Engineering" },
+                    { value: "predictive", label: "Predictive Analytics" },
+                    { value: "managed", label: "Managed Services" }
+                  ]
+                },
+                { name: "message", label: "Your Message", type: "textarea", placeholder: "Your Message", required: true }
+              ]}
+            />
           </div>
         </motion.section>
       </main>

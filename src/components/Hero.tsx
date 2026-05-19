@@ -1,6 +1,233 @@
-import { motion, Variants, AnimatePresence } from "framer-motion";
+import { motion, Variants, AnimatePresence, useInView } from "framer-motion";
 import { Cloud, Database, ShieldCheck, Smartphone, Code2, Server, ArrowLeft, ArrowRight } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
+
+// Zero-bloat, smooth Stat Counter component with tabular numbers to prevent layout shift
+function StatCounter({ target }: { target: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+    let start = 0;
+    const numericString = target.replace(/[^0-9.]/g, "");
+    const end = parseFloat(numericString);
+    if (isNaN(end)) return;
+
+    const duration = 1800; // 1.8s
+    const stepTime = 16;   // ~60fps step
+    const steps = duration / stepTime;
+    const increment = end / steps;
+
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= end) {
+        clearInterval(timer);
+        setCount(end);
+      } else {
+        setCount(start);
+      }
+    }, stepTime);
+
+    return () => clearInterval(timer);
+  }, [target, isInView]);
+
+  const hasPlus = target.includes("+");
+  const isK = target.includes("k");
+  let display = "";
+  if (isK) {
+    display = count.toFixed(1) + "k";
+  } else {
+    display = Math.floor(count).toLocaleString();
+  }
+  return <span ref={ref} className="tabular-nums font-extrabold">{display}{hasPlus ? "+" : ""}</span>;
+}
+
+// Highly optimized, premium programmatic tech graphic with full hardware-accelerated motion
+function GlobalTechCore() {
+  return (
+    <div className="relative w-full aspect-square max-w-[460px] mx-auto flex items-center justify-center">
+      {/* Background ambient pulse glow */}
+      <motion.div
+        animate={{
+          scale: [1, 1.1, 1],
+          opacity: [0.15, 0.25, 0.15],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute w-72 h-72 rounded-full bg-gradient-to-tr from-indigo-500/30 to-purple-500/30 blur-[80px] -z-10"
+      />
+
+      <svg
+        className="w-full h-full text-slate-800"
+        viewBox="0 0 400 400"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <linearGradient id="gridGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#818CF8" stopOpacity="0.25" />
+            <stop offset="100%" stopColor="#C084FC" stopOpacity="0.05" />
+          </linearGradient>
+          <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#6366F1" />
+            <stop offset="50%" stopColor="#A855F7" />
+            <stop offset="100%" stopColor="#3B82F6" />
+          </linearGradient>
+          <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="6" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          </filter>
+        </defs>
+
+        {/* 3D Isometric Network Layer */}
+        <g transform="translate(200, 200) rotate(-30) skewX(30) scale(1, 0.86)">
+          {/* Overlapping grid lines */}
+          <motion.g
+            animate={{ opacity: [0.4, 0.6, 0.4] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            {[-120, -60, 0, 60, 120].map((coord, idx) => (
+              <line
+                key={`grid-h-${idx}`}
+                x1="-150"
+                y1={coord}
+                x2="150"
+                y2={coord}
+                stroke="url(#gridGrad)"
+                strokeWidth="1.2"
+              />
+            ))}
+            {[-120, -60, 0, 60, 120].map((coord, idx) => (
+              <line
+                key={`grid-v-${idx}`}
+                x1={coord}
+                y1="-150"
+                x2={coord}
+                y2="150"
+                stroke="url(#gridGrad)"
+                strokeWidth="1.2"
+              />
+            ))}
+          </motion.g>
+
+          {/* Active Data Flows */}
+          <g>
+            <motion.path
+              d="M -120 -60 L 0 -60 L 0 60 L 120 60"
+              stroke="url(#lineGrad)"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeDasharray="40 120"
+              animate={{ strokeDashoffset: [0, -320] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            />
+            <motion.path
+              d="M -60 120 L -60 0 L 60 0 L 60 -120"
+              stroke="url(#lineGrad)"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeDasharray="50 150"
+              animate={{ strokeDashoffset: [0, 400] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+            />
+          </g>
+
+          {/* Floating Isometric Core Layer */}
+          <motion.g
+            animate={{
+              y: [0, -8, 0],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            {/* Connected node circles */}
+            {[
+              { x: 0, y: 0, r: 8, color: "#6366F1" },
+              { x: -60, y: -60, r: 6, color: "#818CF8" },
+              { x: 60, y: 60, r: 6, color: "#C084FC" },
+              { x: 120, y: -60, r: 5, color: "#F472B6" },
+              { x: -120, y: 60, r: 5, color: "#3B82F6" },
+            ].map((node, i) => (
+              <g key={i}>
+                <motion.circle
+                  cx={node.x}
+                  cy={node.y}
+                  r={node.r + 5}
+                  fill={node.color}
+                  opacity="0.15"
+                  animate={{ scale: [1, 1.3, 1], opacity: [0.15, 0.3, 0.15] }}
+                  transition={{ duration: 3, delay: i * 0.4, repeat: Infinity }}
+                />
+                <circle cx={node.x} cy={node.y} r={node.r} fill={node.color} />
+                <circle cx={node.x} cy={node.y} r={2} fill="#FFFFFF" />
+              </g>
+            ))}
+          </motion.g>
+        </g>
+
+        {/* Orbit Rings (Overlayed perspective in center) */}
+        <motion.g
+          animate={{
+            rotate: 360,
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          transform="translate(200, 200)"
+        >
+          <circle
+            cx="0"
+            cy="0"
+            r="90"
+            stroke="url(#lineGrad)"
+            strokeWidth="1.5"
+            strokeDasharray="12 40"
+            opacity="0.5"
+          />
+          <circle
+            cx="0"
+            cy="0"
+            r="110"
+            stroke="#A855F7"
+            strokeWidth="1"
+            strokeDasharray="4 24"
+            opacity="0.3"
+          />
+        </motion.g>
+
+        {/* Core Floating Node */}
+        <g transform="translate(200, 200)">
+          <motion.circle
+            r="36"
+            fill="url(#lineGrad)"
+            opacity="0.12"
+            filter="url(#glow)"
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.circle
+            r="24"
+            fill="url(#lineGrad)"
+            opacity="0.8"
+            animate={{ y: [0, -5, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <circle cx="0" cy="0" r="10" fill="#FFFFFF" filter="url(#glow)" opacity="0.9" />
+        </g>
+      </svg>
+    </div>
+  );
+}
 
 export function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -50,6 +277,28 @@ export function Hero() {
         type: "spring",
         stiffness: 300,
         damping: 24,
+      },
+    },
+  };  const aboutContainerVariants: Variants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.15,
+      },
+    },
+  };
+
+  const aboutItemVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 18,
       },
     },
   };
@@ -200,71 +449,77 @@ export function Hero() {
       </div>
 
       {/* About Us Section */}
-      <div className="py-12 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 relative z-10 bg-white border border-gray-100 rounded-[2.5rem] shadow-xl my-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div 
+        className="py-16 max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 relative z-10 rounded-[2.5rem] shadow-xl my-16 overflow-hidden border border-gray-100"
+        style={{
+          background: "radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 1) 0%, rgba(252, 253, 255, 0.98) 100%)"
+        }}
+      >
+        <motion.div 
+          variants={aboutContainerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
+        >
           {/* Left Column */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <span className="text-xs font-bold tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 uppercase mb-6 block">
-              WHO WE ARE
-            </span>
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-8 tracking-tight">About Us</h2>
-            <p className="text-gray-600 text-lg leading-relaxed mb-6">
-              Wavelet is a precision-focused technology partner dedicated to scaling the world's most ambitious businesses. We bridge the gap between complex enterprise infrastructure and seamless user experiences.
-            </p>
-            <p className="text-gray-600 text-lg leading-relaxed mb-10">
-              Our multidisciplinary team combines strategic consultancy with expert execution, empowering partners to navigate the rapidly evolving digital landscape with absolute confidence.
-            </p>
+          <div className="flex flex-col">
+            <motion.div variants={aboutItemVariants} className="space-y-6">
+              <span className="text-xs font-bold tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 uppercase block">
+                WHO WE ARE
+              </span>
+              <h2 className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 tracking-tight leading-tight">
+                About Us
+              </h2>
+              <p className="text-gray-600 text-lg leading-relaxed">
+                Wavelet is a precision-focused technology partner dedicated to scaling the world's most ambitious businesses. We bridge the gap between complex enterprise infrastructure and seamless user experiences.
+              </p>
+              <p className="text-gray-600 text-lg leading-relaxed">
+                Our multidisciplinary team combines strategic consultancy with expert execution, empowering partners to navigate the rapidly evolving digital landscape with absolute confidence.
+              </p>
+            </motion.div>
             
-            <div className="flex flex-wrap gap-12 mb-12">
+            {/* Boxed Stats Mini-Cards Grid */}
+            <motion.div variants={aboutItemVariants} className="grid grid-cols-3 gap-4 sm:gap-6 my-10">
               {[
                 { label: "CUSTOMERS", value: "4700+" },
                 { label: "LOCATIONS", value: "250+" },
                 { label: "PROJECTS", value: "1.2k+" }
               ].map((stat) => (
-                <div key={stat.label} className="flex flex-col">
-                  <div className="text-4xl font-bold bg-gradient-to-tr from-blue-600 to-purple-600 bg-clip-text text-transparent tracking-tight">
-                    {stat.value}
+                <div 
+                  key={stat.label} 
+                  className="flex flex-col items-center justify-center text-center bg-white border border-slate-100/90 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] rounded-2xl p-4 sm:p-5 hover:shadow-[0_8px_30px_-6px_rgba(99,102,241,0.08)] hover:-translate-y-0.5 transition-all duration-300"
+                >
+                  <div className="text-2xl sm:text-4xl font-extrabold bg-gradient-to-tr from-indigo-600 to-purple-600 bg-clip-text text-transparent tracking-tight tabular-nums">
+                    <StatCounter target={stat.value} />
                   </div>
-                  <div className="text-[10px] font-black text-gray-400 tracking-[0.2em] uppercase mt-2">
+                  <div className="text-[10px] font-black text-gray-400 tracking-[0.15em] uppercase mt-2">
                     {stat.label}
                   </div>
                 </div>
               ))}
-            </div>
+            </motion.div>
             
-            <motion.a 
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              href="/about" 
-              className="inline-flex items-center justify-center border border-gray-200 text-gray-900 font-bold rounded-full px-10 py-4 hover:bg-gray-50 transition-all shadow-sm text-sm"
-            >
-              Know More
-            </motion.a>
-          </motion.div>
+            <motion.div variants={aboutItemVariants}>
+              <motion.a 
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                href="/about" 
+                className="inline-flex items-center justify-center bg-slate-900 text-white font-bold rounded-full px-10 py-4 hover:bg-gray-800 hover:-translate-y-1 hover:shadow-lg transition-all text-sm cursor-pointer shadow-md"
+              >
+                Know More
+              </motion.a>
+            </motion.div>
+          </div>
           
-          {/* Right Column */}
+          {/* Right Column - Programmatic SVG Visual */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="relative"
+            variants={aboutItemVariants}
+            className="relative flex items-center justify-center"
           >
-            <div className="bg-gradient-to-tr from-blue-50/50 to-purple-50/50 rounded-[2.5rem] aspect-square border border-white shadow-[inset_0_0_80px_rgba(255,255,255,1)] flex items-center justify-center overflow-hidden group">
-               <div className="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.05] transition-opacity" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #000 1px, transparent 0)', backgroundSize: '32px 32px' }} />
-               <div className="relative z-10 w-48 h-48 rounded-full bg-white/40 backdrop-blur-3xl border border-white/60 shadow-2xl flex items-center justify-center animate-pulse">
-                 <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 shadow-[0_0_40px_rgba(99,102,241,0.5)]" />
-                 </div>
-               </div>
-            </div>
+            <GlobalTechCore />
           </motion.div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Tech Solutions Section */}

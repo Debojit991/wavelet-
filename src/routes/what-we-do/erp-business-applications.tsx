@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { erpBusinessAppsData, erpStepDeliverables } from '@/data/erpBusinessAppsData';
 import { EnterpriseFooter } from '@/components/EnterpriseFooter';
+import { ServiceContactForm } from '@/components/ServiceContactForm';
 import { 
   AlertCircle, ArrowRight, Check, CheckCircle2, 
   Activity, ShieldAlert, Zap, RefreshCw, 
@@ -729,38 +730,23 @@ function ERPRoute() {
       {/* 11. Contact Form Section */}
       <motion.section 
         {...getSectionReveal()}
-        className="py-8 sm:py-12 px-4 max-w-3xl mx-auto"
+        className="py-8 sm:py-12 px-4"
       >
-        <div className="bg-white rounded-[2.5rem] p-8 sm:p-12 border border-black/5 shadow-[0_15px_50px_rgba(0,0,0,0.04)]">
-          <div className="text-center mb-8 flex flex-col items-center">
-            <span className="text-[10px] uppercase tracking-[0.4em] text-gray-400 font-bold mb-3">Get in Touch</span>
-            <h2 className="text-2xl sm:text-3xl font-black text-gray-900 tracking-tight">{contactCard.heading}</h2>
-          </div>
-
-          <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
-            {contactCard.fields.map((f: string, i: number) => (
-              <div key={i} className="flex flex-col gap-2">
-                <label className="text-[10px] uppercase tracking-wider text-gray-400 font-bold">{f}</label>
-                {f === "Message" ? (
-                  <textarea 
-                    rows={4} 
-                    placeholder={`Enter your ${f.toLowerCase()}...`}
-                    className="w-full rounded-2xl border border-gray-200/80 bg-gray-50 px-5 py-4 text-sm font-bold text-gray-900 placeholder:text-gray-400 focus:border-gray-900 focus:bg-white focus:outline-none transition-all"
-                  />
-                ) : (
-                  <input 
-                    type={f === "Work Email" ? "email" : "text"} 
-                    placeholder={`Enter your ${f.toLowerCase()}...`}
-                    className="w-full rounded-full border border-gray-200/80 bg-gray-50 px-5 py-4 text-sm font-bold text-gray-900 placeholder:text-gray-400 focus:border-gray-900 focus:bg-white focus:outline-none transition-all"
-                  />
-                )}
-              </div>
-            ))}
-            <button className="w-full rounded-full bg-black text-white font-bold py-5 hover:bg-black/90 transition-all text-base cursor-pointer">
-              {contactCard.submitButtonText}
-            </button>
-          </form>
-        </div>
+        <ServiceContactForm
+          layout="single-card"
+          theme="erp"
+          title={contactCard.heading}
+          description="Let's build a unified, automated operation. Our specialists will review your requirements."
+          buttonText={contactCard.submitButtonText}
+          successHeading="ERP Project Request Received!"
+          successMessage="Our business application architects will review your business process requirements and reach out within 24 business hours."
+          subject="WAVELET: ERP & Business Applications Inquiry"
+          fields={[
+            { name: "name", label: "Full Name", type: "text", placeholder: "Enter your name...", required: true },
+            { name: "email", label: "Work Email", type: "email", placeholder: "Enter your work email...", required: true },
+            { name: "message", label: "Message", type: "textarea", placeholder: "Enter your message...", required: true }
+          ]}
+        />
       </motion.section>
 
       {/* 12. Final Call-to-Action - Tightened Spacing */}

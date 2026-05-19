@@ -3,6 +3,7 @@ import { SiteHeader } from '@/components/SiteHeader';
 import { EnterpriseFooter } from '@/components/EnterpriseFooter';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { ServiceContactForm } from '@/components/ServiceContactForm';
 import { 
   Palette, Laptop, BarChart3, Target, Sparkles, CheckCircle2, 
   HelpCircle, ChevronDown, ArrowRight, Layers, FileText, 
@@ -761,120 +762,31 @@ function DesignDigitalMarketingPage() {
           </div>
         </motion.section>
 
-        {/* 9. ContactCard Section - Re-skinned inside pure white border block */}
+        {/* 9. ContactCard Section */}
         <motion.section 
           {...getSectionReveal()}
           className="py-6 sm:py-8 px-4"
         >
-          <div className="max-w-4xl mx-auto bg-white border border-amber-200 shadow-md rounded-[2.5rem] p-6 sm:p-8 lg:p-10 relative overflow-hidden">
-            <div className="absolute inset-0 opacity-[0.05]" style={{ background: "radial-gradient(circle at 100% 0%, #FFD54F 0%, transparent 60%)" }} />
-            <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
-              
-              <div className="flex flex-col justify-between">
-                <div>
-                  <h2 className="text-3xl sm:text-4xl font-black mb-4 text-slate-900 tracking-tight">Let's Connect</h2>
-                  <p className="text-slate-700 text-xs sm:text-sm leading-relaxed mb-6 font-semibold">
-                    Ready to build your digital presence? Our design and acquisition architects are prepared to map out your conversion goals.
-                  </p>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 bg-amber-50 border border-amber-200 rounded-full flex items-center justify-center text-amber-600">
-                      <Zap className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <div className="text-[8px] font-black uppercase tracking-widest text-slate-500">Quick Response</div>
-                      <div className="font-extrabold text-slate-900 text-xs sm:text-sm">Under 24 hours</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 bg-orange-50 border border-orange-200 rounded-full flex items-center justify-center text-orange-600">
-                      <ShieldCheck className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <div className="text-[8px] font-black uppercase tracking-widest text-slate-500">Secure Consultation</div>
-                      <div className="font-extrabold text-slate-900 text-xs sm:text-sm">NDA Compliant</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Form Layout inside Elevated style */}
-              <div className="bg-amber-50/50 border border-amber-200 rounded-2xl p-5 sm:p-6 shadow-sm">
-                <AnimatePresence mode="wait">
-                  {!formSubmitted ? (
-                    <motion.form 
-                      key="form"
-                      onSubmit={(e) => {
-                        e.preventDefault();
-                        setFormSubmitted(true);
-                      }}
-                      className="space-y-3"
-                    >
-                      <div className="relative">
-                        <label className="text-[9px] font-black uppercase tracking-widest text-slate-500 block mb-1">Name</label>
-                        <div className="relative">
-                          <input 
-                            required
-                            type="text" 
-                            placeholder="Full Name" 
-                            className="w-full bg-white border border-amber-200 text-slate-900 placeholder:text-slate-455 rounded-xl pl-9 pr-4 py-2 text-xs outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500 transition-all font-semibold"
-                          />
-                          <User className="absolute left-3.5 top-2.5 w-3.5 h-3.5 text-amber-600" />
-                        </div>
-                      </div>
-
-                      <div className="relative">
-                        <label className="text-[9px] font-black uppercase tracking-widest text-slate-500 block mb-1">Work Email</label>
-                        <div className="relative">
-                          <input 
-                            required
-                            type="email" 
-                            placeholder="you@company.com" 
-                            className="w-full bg-white border border-amber-200 text-slate-900 placeholder:text-slate-455 rounded-xl pl-9 pr-4 py-2 text-xs outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500 transition-all font-semibold"
-                          />
-                          <Mail className="absolute left-3.5 top-2.5 w-3.5 h-3.5 text-amber-600" />
-                        </div>
-                      </div>
-
-                      <div className="relative">
-                        <label className="text-[9px] font-black uppercase tracking-widest text-slate-500 block mb-1">Message</label>
-                        <textarea 
-                          required
-                          placeholder="Tell us about your conversion objectives..." 
-                          rows={3} 
-                          className="w-full bg-white border border-amber-200 text-slate-900 placeholder:text-slate-455 rounded-xl px-3 py-2 text-xs outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500 transition-all resize-none font-semibold"
-                        />
-                      </div>
-
-                      <button 
-                        type="submit" 
-                        className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition-all shadow-sm cursor-pointer text-xs"
-                      >
-                        Start My Free Audit
-                      </button>
-                    </motion.form>
-                  ) : (
-                    <motion.div 
-                      key="success"
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="text-center py-6 space-y-3"
-                    >
-                      <div className="w-10 h-10 rounded-full bg-emerald-50 border border-emerald-500 flex items-center justify-center text-emerald-600 mx-auto">
-                        <CheckCircle2 className="w-6 h-6" />
-                      </div>
-                      <h4 className="text-base font-black text-slate-900">Strategy Request Received!</h4>
-                      <p className="text-xs text-slate-700 font-semibold leading-relaxed">
-                        Our growth and design architects will review your objective checklist and reach out within 24 business hours.
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-            </div>
+          <div className="max-w-4xl mx-auto">
+            <ServiceContactForm
+              layout="split"
+              theme="amber"
+              title="Let's Connect"
+              description="Ready to build your digital presence? Our design and acquisition architects are prepared to map out your conversion goals."
+              buttonText="Start My Free Audit"
+              successHeading="Strategy Request Received!"
+              successMessage="Our growth and design architects will review your objective checklist and reach out within 24 business hours."
+              subject="WAVELET: Design & Marketing Inquiry"
+              bullets={[
+                { iconName: "zap", title: "Quick Response", subtitle: "Under 24 hours" },
+                { iconName: "shield-check", title: "Secure Consultation", subtitle: "NDA Compliant" }
+              ]}
+              fields={[
+                { name: "name", label: "Full Name", type: "text", placeholder: "Full Name", required: true },
+                { name: "email", label: "Work Email", type: "email", placeholder: "you@company.com", required: true },
+                { name: "message", label: "Message", type: "textarea", placeholder: "Tell us about your conversion objectives...", required: true }
+              ]}
+            />
           </div>
         </motion.section>
 

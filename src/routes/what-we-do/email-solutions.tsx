@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { emailSolutionsData } from '@/data/emailSolutionsData';
 import { EnterpriseFooter } from '@/components/EnterpriseFooter';
+import { ServiceContactForm } from '@/components/ServiceContactForm';
 import { 
   AlertCircle, ArrowRight, Check, CheckCircle2, 
   Activity, ShieldAlert, Zap, Mail, RefreshCw, 
@@ -781,6 +782,29 @@ function EmailSolutionsRoute() {
               </AccordionItem>
             ))}
           </Accordion>
+        </div>
+      </motion.section>
+
+      {/* Let's Connect Form Section */}
+      <motion.section 
+        {...getSectionReveal()}
+        className="py-8 sm:py-12 px-4"
+      >
+        <div className="max-w-4xl mx-auto">
+          <ServiceContactForm
+            layout="split"
+            theme="red"
+            title="Let's Connect"
+            description="Ready to build a reliable and secure communications foundation? Let's discuss your enterprise email, productivity suite, or migration requirements."
+            buttonText="Start My Project"
+            successHeading="Project Request Received!"
+            successMessage="Our email solutions specialists will review your project details and reach out within 24 business hours."
+            subject="WAVELET: Email & Productivity Solutions Inquiry"
+            bullets={[
+              { iconName: "zap", title: "Zero Downtime", subtitle: "Seamless migration guarantee" },
+              { iconName: "shield-check", title: "Enterprise Security", subtitle: "DKIM, SPF & DMARC fully configured" }
+            ]}
+          />
         </div>
       </motion.section>
 

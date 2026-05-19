@@ -3,6 +3,7 @@ import { SiteHeader } from '@/components/SiteHeader';
 import { EnterpriseFooter } from '@/components/EnterpriseFooter';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { ServiceContactForm } from '@/components/ServiceContactForm';
 import { 
   Rocket, Smartphone, Code2, ShieldCheck, CheckCircle2, 
   HelpCircle, ArrowRight, Lock, CloudOff,
@@ -519,58 +520,23 @@ function WebMobileAppsPage() {
                 ))}
               </Accordion>
             </div>
-
             {/* Contact Form */}
-            <div className="bg-white border border-indigo-100 rounded-[2rem] p-6 sm:p-8 shadow-xl relative overflow-hidden">
-               {/* Programmatic Abstract Tech Pattern BG */}
-               <svg className="absolute inset-0 w-full h-full text-indigo-500 pointer-events-none opacity-[0.03] -z-10" viewBox="0 0 400 400" fill="none">
-                  <path d="M0 0 L400 400 M400 0 L0 400" stroke="currentColor" strokeWidth="60" />
-               </svg>
-
-               <h2 className="text-2xl font-black text-slate-900 tracking-tight mb-2">Scope Your MVP</h2>
-               <p className="text-slate-600 text-sm font-bold leading-relaxed mb-6">
-                 Share your requirements. We'll map the fastest, most scalable path to release.
-               </p>
-
-               <form 
-                 onSubmit={(e) => {
-                   e.preventDefault();
-                   setFormSubmitted(true);
-                 }}
-                 className="space-y-3 relative z-10"
-               >
-                 {!formSubmitted ? (
-                   <>
-                     <div className="relative">
-                       <label className="text-[9px] font-black uppercase tracking-widest text-indigo-800 block mb-1">Name</label>
-                       <div className="relative">
-                          <input required type="text" placeholder="Full Name" className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-4 py-2.5 text-xs outline-none focus:ring-1 focus:ring-indigo-500 font-bold text-slate-900 placeholder:text-slate-400" />
-                          <User className="absolute left-3 top-2.5 w-4 h-4 text-indigo-500" />
-                       </div>
-                     </div>
-                     <div className="relative">
-                       <label className="text-[9px] font-black uppercase tracking-widest text-indigo-800 block mb-1">Email</label>
-                       <div className="relative">
-                          <input required type="email" placeholder="Work Email" className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-4 py-2.5 text-xs outline-none focus:ring-1 focus:ring-indigo-500 font-bold text-slate-900 placeholder:text-slate-400" />
-                          <Mail className="absolute left-3 top-2.5 w-4 h-4 text-indigo-500" />
-                       </div>
-                     </div>
-                     <div className="relative">
-                       <label className="text-[9px] font-black uppercase tracking-widest text-indigo-800 block mb-1">Project Details</label>
-                       <textarea required placeholder="App functionality, timeline, specific integrations..." rows={3} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs outline-none focus:ring-1 focus:ring-indigo-500 resize-none font-bold text-slate-900 placeholder:text-slate-400" />
-                     </div>
-                     <button type="submit" className="w-full bg-indigo-900 hover:bg-indigo-800 text-white font-black py-3.5 rounded-xl transition-all shadow-md text-sm mt-2">
-                       Request Architecture Review
-                     </button>
-                   </>
-                 ) : (
-                   <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-6 text-center">
-                     <CheckCircle2 className="w-8 h-8 text-emerald-500 mx-auto mb-2" />
-                     <div className="font-black text-slate-900 mb-1">Inquiry Submitted</div>
-                     <div className="text-xs font-bold text-slate-700">An engineer will respond shortly with next steps.</div>
-                   </div>
-                 )}
-               </form>
+            <div className="bg-white border border-indigo-100 rounded-[2rem] p-3 shadow-xl relative overflow-hidden">
+              <ServiceContactForm
+                layout="single-card"
+                theme="violet"
+                title="Scope Your MVP"
+                description="Share your requirements. We'll map the fastest, most scalable path to release."
+                buttonText="Request Architecture Review"
+                successHeading="Inquiry Submitted!"
+                successMessage="An engineer will respond shortly with next steps."
+                subject="WAVELET: Web & Mobile Applications Inquiry"
+                fields={[
+                  { name: "name", label: "Full Name", type: "text", placeholder: "Full Name", required: true },
+                  { name: "email", label: "Work Email", type: "email", placeholder: "you@company.com", required: true },
+                  { name: "message", label: "Project Details", type: "textarea", placeholder: "App functionality, timeline, specific integrations...", required: true }
+                ]}
+              />
             </div>
 
           </div>

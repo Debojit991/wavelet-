@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { EnterpriseFooter } from '@/components/EnterpriseFooter';
 import { Plus, CheckCircle, Clock, Globe, Shield, Zap, Target, BarChart, Server, Lock, Cpu, Cloud, Database, Network } from 'lucide-react';
 import { useState } from 'react';
+import { ServiceContactForm } from '@/components/ServiceContactForm';
 
 export const Route = createFileRoute('/what-we-do/cloud')({
   component: CloudRoute,
@@ -345,24 +346,22 @@ function CloudRoute() {
             </Link>
           </div>
 
-          <div className="bg-gray-900 rounded-[3rem] p-10 md:p-20 text-white relative overflow-hidden mt-12">
-            <div className="absolute inset-0 opacity-10" style={{ background: "radial-gradient(circle at 100% 0%, white 0%, transparent 50%)" }} />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 relative z-10">
-              <div>
-                <h2 className="text-5xl font-bold mb-8 tracking-tight">Let's Connect</h2>
-                <p className="text-gray-400 text-lg leading-relaxed">
-                  Have a specific challenge? Our enterprise architects are ready to help you navigate the complexity.
-                </p>
-              </div>
-              <form className="space-y-4">
-                <input type="text" placeholder="Your Name" className="w-full bg-white text-gray-900 rounded-xl px-6 py-4 outline-none focus:ring-2 focus:ring-[#42A5F5] transition-all" />
-                <input type="email" placeholder="Work Email" className="w-full bg-white text-gray-900 rounded-xl px-6 py-4 outline-none focus:ring-2 focus:ring-[#42A5F5] transition-all" />
-                <textarea placeholder="Message" rows={4} className="w-full bg-white text-gray-900 rounded-xl px-6 py-4 outline-none focus:ring-2 focus:ring-[#42A5F5] transition-all resize-none" />
-                <button className="w-full bg-[#42A5F5] hover:bg-blue-500 text-white font-bold py-5 rounded-xl transition-all shadow-lg shadow-blue-500/20">
-                  Submit Query
-                </button>
-              </form>
-            </div>
+          <div className="mt-12">
+            <ServiceContactForm
+              layout="dark-split"
+              theme="blue"
+              title="Let's Connect"
+              description="Have a specific challenge? Our enterprise architects are ready to help you navigate the complexity."
+              buttonText="Submit Query"
+              successHeading="Inquiry Received!"
+              successMessage="Our enterprise architects will review your infrastructure query and reach out within 24 business hours."
+              subject="WAVELET: Cloud Infrastructure Inquiry"
+              fields={[
+                { name: "name", label: "Your Name", type: "text", placeholder: "Full Name", required: true },
+                { name: "email", label: "Work Email", type: "email", placeholder: "you@company.com", required: true },
+                { name: "message", label: "Message", type: "textarea", placeholder: "Describe your cloud architecture, constraints, or goals...", required: true }
+              ]}
+            />
           </div>
         </div>
       </motion.section>
